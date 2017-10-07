@@ -1,6 +1,5 @@
 # Sentiment-Analysis
 
-Sentiment Analysis in Python
 Detailed README Coming Soon
 
 
