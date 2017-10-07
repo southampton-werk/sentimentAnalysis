@@ -119,3 +119,18 @@ print accuracy
 print precision
 print recall
 
+#Machine-Learning Techniques
+uniqueWords = {}
+count = 0
+for lines in train_X:
+	for words in lines:
+		if words not in uniqueWords:
+			uniqueWords[words] = count
+			count+=1
+
+train_input_vector = []
+for lines in train_X:
+	arr = np.zeros(count)
+	for words in lines:
+		arr[uniqueWords[words]] = 1
+	train_input_vector.append(arr)
