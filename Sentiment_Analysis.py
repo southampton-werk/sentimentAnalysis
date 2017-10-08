@@ -3,7 +3,7 @@ import re
 import numpy as np
 import matplotlib.pyplot as plt 
 
-with open("Desktop/training.txt") as f:
+with open("training.txt") as f:
     content = f.readlines()
 
 content = [x.strip() for x in content]
@@ -134,3 +134,45 @@ for lines in train_X:
 	for words in lines:
 		arr[uniqueWords[words]] = 1
 	train_input_vector.append(arr)
+
+train_input = np.array(train_input_vector)
+
+#Sigmoid
+def sigmoid(input):
+	return 1/(1+np.exp(-input))
+
+#Sigmoid Gradient
+def sigmoid_grad(x):
+	return x*(1-x)
+
+#LogisticRegression
+max_iter = 10000
+learning_rate = 0.3
+intercept = np.ones((train_input.shape[0],1))
+train_input = np.hstack((intercept, train_input))
+theta = np.zeros(train_input.shape[1])
+train_Y_arr = np.array(train_Y)
+for iter in range(max_iter):
+	current_val = np.dot(train_input,theta)
+	current_predictions = sigmoid(current_val)
+	#Update Theta
+	error = train_Y_arr - current_predictions
+	gradient = np.dot(train_input.T, error)
+	theta += learning_rate * gradient
+
+test_input_vector = []
+for lines in test_X:
+	arr = np.zeros(count)
+	for words in lines:
+		if words in uniqueWords:
+			arr[uniqueWords[words]] = 1
+	test_input_vector.append(arr)
+
+test_input = np.array(test_input_vector)
+intercept = np.ones((test_input.shape[0],1))
+test_input = np.hstack((intercept, test_input))
+final_cost = np.dot(test_input, theta)
+prediction = np.round(sigmoid(final_cost))
+test_Y_arr = np.array(test_Y)
+
+print 'Accuracy: {0}'.format((prediction == test_Y_arr).sum().astype(float) / len(prediction)) #98.09
