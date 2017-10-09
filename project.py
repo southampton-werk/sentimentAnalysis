@@ -95,6 +95,8 @@ plt.scatter(ss,train_Y)
 plt.axvline(x=0, color='r', linestyle='-')
 plt.xlim(np.min(np.array(ss)), np.max(np.array(ss)))
 plt.ylim(-1,2)
+plt.xlabel("Sentence Score")
+plt.ylabel("Sentiment")
 plt.show()
 #Logistic Regression
 uniqueWords = {}
