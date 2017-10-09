@@ -25,6 +25,6 @@ For example:
 For all the input sentences in the testing dataset, sentence score is calculated by adding the positive score of the words and subtracting the negative score, provided that the word is present in the collection of Unique Words.A threshold for sentence score is to be choosen for classifiying sentences as positive orr negative.
 
 Plotting the accuracy, precision and recall for various thresholds:
-![alt text](https://github.com/shubhi-sareen/Sentiment-Analysis/master/plot_for_accuracy.png "Plot against various thresholds")
+![alt text](https://github.com/shubhi-sareen/Sentiment-Analysis/blob/master/plot_for_accuracy.png "Plot against various thresholds")
 
 Dataset Source (from Kaggle): https://inclass.kaggle.com/c/si650winter11/data
