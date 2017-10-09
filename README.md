@@ -6,7 +6,7 @@ Implemented text analysis using analytical and machine learning models to classi
 
 ## Analytical Method of Sentence Scoring
 
-**Training Phase**
+### Training Phase:
 
 For all the unique words in the training, unique words are identified and their positive and negative score is computed. Positive Score of a word is incremented if it is present in a sentence with positive sentiment, and similarly negative score is incremented if it is present in a sentence with negative sentiment.
 
@@ -19,12 +19,18 @@ For example:
 | Harry | 874 | 810 |
 | Vinci | 800 | 792 |
 
-**Inference: **From the example, it can be observed that words which depict the underlying opinion (adjectives) have a huge difference in positive and negative score, wheras wordds like HArry, Vinci (Nouns) have similar positive and negative count depending upon the sampling.
+**Inference:** From the example, it can be observed that words which depict the underlying opinion (adjectives) have a huge difference in positive and negative score, wheras wordds like HArry, Vinci (Nouns) have similar positive and negative count depending upon the sampling.
 
-**Testing Phase**
+### Testing Phase:
 For all the input sentences in the testing dataset, sentence score is calculated by adding the positive score of the words and subtracting the negative score, provided that the word is present in the collection of Unique Words.A threshold for sentence score is to be choosen for classifiying sentences as positive orr negative.
 
 Plotting the accuracy, precision and recall for various thresholds:
-![alt text](https://github.com/shubhi-sareen/Sentiment-Analysis/blob/master/plot_for_accuracy.png "Plot against various thresholds")
+![alt text](https://github.com/shubhi-sareen/Sentiment-Analysis/blob/master/plot_for_accuracy.png "Plot against various thresholds") 
+
+From the plot, it can be observed that for threshold = 0, maximum accuracy of ~89%, along with a reaonable precision of 0.94 and recall of 0.88 is achieved.
+
+Choosing the threshold of 0, the distribution of the testing dataset across this threshold is as follows:
+
+![alt text](https://github.com/shubhi-sareen/Sentiment-Analysis/blob/master/ss_projection.png "Plot of testing dataset across the threshold") 
 
 Dataset Source (from Kaggle): https://inclass.kaggle.com/c/si650winter11/data
