@@ -2,7 +2,7 @@ from random import randrange
 import re
 import numpy as np
 import matplotlib.pyplot as plt
-
+from mpl_toolkits.mplot3d import Axes3D
 with open("training.txt") as f:
     content = f.readlines()
 
@@ -138,4 +138,18 @@ plt.scatter(zeros_U0,zeros_U1,color='r')
 plt.scatter(ones_U0,ones_U1,color='b')
 plt.xlim(np.min(U[:,0]),np.max(U[:,0]))
 plt.ylim(np.min(U[:,1]),np.max(U[:,1]))
+plt.show()
+
+zeros_U2 = []
+ones_U2 = []
+
+for i in range(len(U[:,2])):
+	if train_Y[i] == 0:
+		zeros_U2.append(U[i][2])
+	else:
+		ones_U2.append(U[i][2])
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(zeros_U0, zeros_U1, zeros_U2, zdir='z', s=20, c='r', depthshade=True)
+ax.scatter(ones_U0, ones_U1, ones_U2, zdir='z', s=20, c='b', depthshade=True)
 plt.show()
