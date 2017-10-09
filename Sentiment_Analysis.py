@@ -66,59 +66,75 @@ false_positves = 0
 true_negatives = 0
 false_negatives = 0
 
-
-
-for i in range(len(test_X)):
+threshold = -2
+accuracy = []
+precision = []
+recall = []
+while threshold <= 2:
+	true_positives = 0
+	false_positves = 0
+	true_negatives = 0
+	false_negatives = 0
+	for i in range(len(test_X)):
 	
-	lines = test_X[i]
-	sentence_score = 0
+		lines = test_X[i]
+		sentence_score = 0
 	
-	for words in lines:
-		if words in stopwords or len(words) == 1 or "\\" in words or words == ' ':
-			continue
-		if "." in words:
-			for j in range(len(words)):
-				if j == ".":
-					break
-				words = words[:j]
-		if "!" in words:
-			for j in range(len(words)):
-				if j == ".":
-					break
-				words = words[:j]
-		if words.isalpha() is False:
-			continue
-		total = 0
-		if words in positive_count:
-			total+=positive_count[words]
-		if words in negative_count:
-			total+=negative_count[words]
-		if words in positive_count:
-			sentence_score += positive_count[words]/float(total)
-		if words in negative_count:
-			sentence_score -= negative_count[words]/float(total)
+		for words in lines:
+			if words in stopwords or len(words) == 1 or "\\" in words or words == ' ':
+				continue
+			if "." in words:
+				for j in range(len(words)):
+					if j == ".":
+						break
+					words = words[:j]
+			if "!" in words:
+				for j in range(len(words)):
+					if j == ".":
+						break
+					words = words[:j]
+			if words.isalpha() is False:
+				continue
+			total = 0
+			if words in positive_count:
+				total+=positive_count[words]
+			if words in negative_count:
+				total+=negative_count[words]
+			if words in positive_count:
+				sentence_score += positive_count[words]/float(total)
+			if words in negative_count:
+				sentence_score -= negative_count[words]/float(total)
 
-	if sentence_score > 0 and test_Y[i] == 1:
-		true_positives += 1
-	elif sentence_score > 0 and test_Y[i] == 0:
-		false_positves += 1
-	elif sentence_score < 0 and test_Y[i] == 1:
-		false_negatives += 1
-	elif sentence_score < 0 and test_Y[i] == 0:
-		true_negatives += 1
-	elif sentence_score == 0:
-		if test_Y[i] == 0:
-			false_positves+=1
-		else:
-			false_negatives+=1
+		if sentence_score > threshold and test_Y[i] == 1:
+			true_positives += 1
+		elif sentence_score > threshold and test_Y[i] == 0:
+			false_positves += 1
+		elif sentence_score < threshold and test_Y[i] == 1:
+			false_negatives += 1
+		elif sentence_score < threshold and test_Y[i] == 0:
+			true_negatives += 1
+		elif sentence_score == threshold:
+			if test_Y[i] == 0:
+				false_positves+=1
+			else:
+				false_negatives+=1
 
-accuracy = (true_positives + true_negatives)/float(true_positives + true_negatives + false_negatives + false_positves)
-precision = true_positives/float(true_positives + false_positves)
-recall = true_positives/float(true_positives + false_negatives)
+	accuracy.append((true_positives + true_negatives)/float(true_positives + true_negatives + false_negatives + false_positves))
+	precision.append(true_positives/float(true_positives + false_positves))
+	recall.append(true_positives/float(true_positives + false_negatives))
+	threshold+=0.5
 print accuracy
 print precision
 print recall
-
+x = [-2,-1.5,-1,-0.5,0,0.5,1,1.5,2]
+plt.plot(x,accuracy,color='green',marker='o',label="Accuracy")
+plt.plot(x,precision,color='red',marker='^',label="Precision")
+plt.plot(x,recall,color='blue',marker='*',label="Recall")
+plt.axvline(x=0, color='pink', linestyle='-')
+plt.xlabel("Threshold")
+plt.ylabel("Values")
+plt.legend(bbox_to_anchor=(1, 1), loc=2, borderaxespad=0.)
+plt.show()
 #Machine-Learning Techniques
 uniqueWords = {}
 count = 0
