@@ -14,7 +14,7 @@ For example:
 
 | Word | Positive Score | Negative Score 
 | --- | ---| --- |
-| Aawesome | 387 | 1 |
+| Awesome | 387 | 1 |
 | Hate | 5 | 451 |
 | Harry | 874 | 810 |
 | Vinci | 800 | 792 |
