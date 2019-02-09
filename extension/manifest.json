@@ -1,15 +1,23 @@
 {
-	"name": "",
-	"version": "",
-	"description": "",
+	"name": "Semantics Extension",
+	"version": "0.1",
+	"description": "Uses semantic analysis to show you how positive or negative your messages are as you type",
 	"icons": {
 	
-	}
-	"background": {
-	
 	},
-	"permissions": [],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	"permissions": ["storage", "activeTab"],
 	"browser_action": {
-	
-	}
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [
+		{
+			"matches": ["http://www.facebook.com/*"],
+			"js": ["contentscript.js"]
+		}
+	],
+	"manifest_version": 2
 }
