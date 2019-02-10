@@ -1,15 +1,15 @@
 {
-	"name": "Semantics Extension",
+	"name": "Sentiment Analysis",
 	"version": "0.1",
-	"description": "Uses semantic analysis to show you how positive or negative your messages are as you type",
+	"description": "Adds a context menu entry which determines the 'positivity' conveyed by a selection of text.",
 	"icons": {
 	
 	},
 	"background": {
-		"scripts": ["background.js"],
+		"scripts": ["jquery-3.3.1.min.js", "background.js"],
 		"persistent": false
 	},
-	"permissions": ["storage", "activeTab"],
+	"permissions": ["activeTab", "contextMenus", "storage"],
 	"browser_action": {
 		"default_popup": "popup.html",
 		"default_icon": {
@@ -25,11 +25,5 @@
       "48": "images/icon48.png",
       "128": "images/icon128.png"
     },
-	"content_scripts": [
-		{
-			"matches": ["http://www.facebook.com/*"],
-			"js": ["contentscript.js"]
-		}
-	],
 	"manifest_version": 2
 }

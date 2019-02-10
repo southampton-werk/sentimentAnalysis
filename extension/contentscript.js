@@ -1,22 +1,47 @@
-function isTextBox(element) {
-    var tagName = element.tagName.toLowerCase();
-    if (tagName === 'textarea') return true;
-    if (tagName !== 'input') return false;
-    var type = element.getAttribute('type').toLowerCase();
-    return type == 'text';
+console.log("script loaded");
+function walk(node, func) {
+    func(node);
+    node = node.firstChild;
+    while (node) {
+        walk(node, func);
+        node = node.nextSibling;
+    }
 }
-
-document.addEventListener("keypress", function(){
-	if( 
-	var active = document.activeElement;
-	if(isTextBox(active){
-		chrome.runtime.sendMessage({type:"message_typed",data:active.text}, function(response){
-			var out = response.data
-			if(out<0){
-				active.style.color = "#ff0000"
-			}else{
-				active.style.color = "#00ff00"
+function appEnabled(){
+	var enabled = true;
+	chrome.storage.local.get(['enabled'], function(result){
+		if(result!=null){
+			enabled = result.key;
+		}
+	});
+	return enabled;
+}
+var source = null;
+document.addEventListener('click', function(e){
+	if(appEnabled()){
+		e = e || window.event;
+		var target = e.target || e.srcElement;
+		console.log("Focused element: "+target.tagName);
+		walk(target, function(node){
+			if(node.nodeType==Node.ELEMENT_NODE){
+				if(node.hasAttributes()){
+					var attrs = node.attributes;
+					if(attrs[0].name=='data-text' && attrs[0].value=="true"){
+						source = node;
+					}
+				}
 			}
 		});
+	}
+});
+document.addEventListener('keyup', function(){
+	if(appEnabled()){
+		source.focus();
+		var input = source.innerHTML;
+		var semval = null;
+		chrome.runtime.sendMessage({type: "input", data: input}, function(response){
+			semval = response.data;
+		});
+		console.log(input+":"+semval);
 	}
 });
