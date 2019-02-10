@@ -1,6 +1,6 @@
 {
 	"name": "Sentiment Analysis",
-	"version": "0.1",
+	"version": "1.0",
 	"description": "Adds a context menu entry which determines the 'positivity' conveyed by a selection of text.",
 	"icons": {
 	
@@ -10,15 +10,6 @@
 		"persistent": false
 	},
 	"permissions": ["activeTab", "contextMenus", "storage"],
-	"browser_action": {
-		"default_popup": "popup.html",
-		"default_icon": {
-			"16": "images/icon16.png",
-			"32": "images/icon32.png",
-			"48": "images/icon48.png",
-			"128": "images/icon128.png"
-		}
-	},
 	"icons": {
       "16": "images/icon16.png",
       "32": "images/icon32.png",
